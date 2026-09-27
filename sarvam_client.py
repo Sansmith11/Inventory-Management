@@ -28,7 +28,7 @@ def _client() -> SarvamAI:
 
 # Map Sarvam's BCP-47-ish codes to a friendly speaker per language (all real
 # speaker names from the SDK's speaker enum).
-_DEFAULT_SPEAKER = "anushka"
+_DEFAULT_SPEAKER = "priya"
 
 
 def speech_to_text(audio_bytes: bytes, filename: str = "audio.wav") -> dict:
@@ -49,7 +49,7 @@ def text_to_speech(text: str, language_code: str = "en-IN") -> bytes:
         text=text,
         language_code=language_code if language_code != "unknown" else "en-IN",
         speaker=_DEFAULT_SPEAKER,
-        model="bulbul:v2",
+        model="bulbul:v3",
         output_audio_codec="mp3",
     )
     audio_b64 = resp.audios[0]

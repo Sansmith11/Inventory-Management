@@ -35,7 +35,10 @@ def speech_to_text(audio_bytes: bytes, filename: str = "audio.wav") -> dict:
     """Transcribe audio, auto-detecting the Indian language spoken."""
     client = _client()
     resp = client.speech_to_text.transcribe(
-        file=(filename, audio_bytes),
+        # Explicit content-type: some systems' mimetypes module guesses
+        # "audio/vnd.wave" for .wav, which Sarvam's API rejects — it only
+        # accepts "audio/wav" (and a few other explicit codecs).
+        file=(filename, audio_bytes, "audio/wav"),
         model="saaras:v3",
         language_code="unknown",  # auto-detect
     )
